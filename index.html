@@ -87,6 +87,10 @@ td.rank{width:40px;color:var(--muted);text-align:left}
 .rt.n{background:var(--bg2);color:var(--muted)}
 .rt.s{background:var(--bad-bg);color:var(--bad)} .rt.ss{background:var(--down);color:#fff}
 .rn{font-size:11px;color:var(--muted);margin-left:5px}
+.wh{display:inline-block;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.wh.in{background:var(--up);color:#fff} .wh.out{background:var(--down);color:#fff}
+.wh.act{background:var(--bg2);color:var(--fg)} .wh.calm{color:var(--muted);font-weight:500}
+.whm{display:none}
 .short{display:none}
 .rsel{padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg2);font-weight:600;font-size:13px}
 .mrate{display:flex;gap:18px;flex-wrap:wrap;padding:10px 18px;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted);align-items:center}
@@ -134,6 +138,8 @@ footer a{color:var(--accent)}
   .tablebox{margin-inline:calc(-1 * max(16px, env(safe-area-inset-left,0px)));}
   table{min-width:0}
   .c-rank,.c-w,.c-m1,.c-mcap,.c-vol,.c-up,.c-isr,.c-st,.c-sp,.c-tr2{display:none}
+  .c-wh{display:none}
+  .whm{display:inline-block;margin-left:5px;font-size:10.5px;font-weight:700;padding:0 4px;border-radius:4px}
   th,td{padding:12px 4px}
   td.star{padding-left:10px;width:20px}
   .name{min-width:0;gap:8px}
@@ -185,6 +191,8 @@ footer a{color:var(--accent)}
       <option value="b+">Buy &amp; Strong Buy</option>
       <option value="n">Neutral</option>
       <option value="s-">Sell &amp; Strong Sell</option>
+      <option value="wi">🐋 Whale masuk (kripto)</option>
+      <option value="wo">🐋 Whale keluar (kripto)</option>
     </select>
     <span class="sp"></span>
     <input class="search" id="q" type="search" placeholder="Cari nama atau ticker" autocomplete="off">
@@ -391,6 +399,57 @@ async function loadCryptoAll(){
   }catch(e){}
   return list;
 }
+/* ===== Pengesan whale (kripto) =====
+   Sumber: data dagangan Binance (pasangan USDT), lilin 1 jam untuk 7 hari.
+   - sr: saiz purata setiap dagangan 24j berbanding 6 hari sebelumnya (dagangan lebih besar = duit besar)
+   - vr: volume 24j berbanding purata harian 6 hari sebelumnya
+   - buy: bahagian volume 24j yang dibeli secara agresif (taker buy) */
+const BN = "https://data-api.binance.vision/api/v3";
+S.whale = store.get("sh2_whale", {t:0, d:{}});
+function whaleOf(w){
+  if(!w) return null;
+  const big = w.sr>=1.3 || w.vr>=2;
+  const c = !big ? "calm" : w.buy>=0.53 ? "in" : w.buy<=0.47 ? "out" : "act";
+  const score = (w.buy-0.5)*100 * (big ? Math.max(w.sr, w.vr/1.5) : 0.1);
+  return {c, score};
+}
+const WH_LABEL = {in:["🐋 Masuk","🐋↑"], out:["🐋 Keluar","🐋↓"], act:["🐋 Aktif","🐋"], calm:["Tenang","·"]};
+function whalePill(x){
+  const w = S.whale.d[x.t], k = whaleOf(w);
+  if(!k) return '<span style="color:var(--muted)">—</span>';
+  const tip = `Saiz dagangan ${w.sr.toFixed(2)}x biasa · Volume ${w.vr.toFixed(2)}x biasa · Beli ${(w.buy*100).toFixed(0)}%`;
+  return `<span class="wh ${k.c}" title="${tip}"><span class="full">${WH_LABEL[k.c][0]}</span><span class="short">${WH_LABEL[k.c][1]}</span></span>`;
+}
+function applyWhale(){
+  (S.data.crypto||[]).forEach(x => { const k = whaleOf(S.whale.d[x.t]); x.wh = k ? k.score : null; x.whc = k ? k.c : null; });
+}
+let whaleBusy = false;
+async function loadWhale(force){
+  if(whaleBusy || (!force && Date.now()-S.whale.t < 10*60e3)) { applyWhale(); return; }
+  const list = S.data.crypto; if(!list || !list.length) return;
+  whaleBusy = true;
+  try{
+    const r = await fetch(BN+"/ticker/price"); if(!r.ok) throw 0;
+    const have = new Set((await r.json()).map(p=>p.symbol));
+    const syms = [...new Set(list.map(x=>x.t))].filter(t => have.has(t+"USDT"));
+    const d = {};
+    let i = 0;
+    const worker = async () => { while(i < syms.length){ const t = syms[i++];
+      try{
+        const k = await (await fetch(`${BN}/klines?symbol=${t}USDT&interval=1h&limit=168`)).json();
+        if(!Array.isArray(k) || k.length < 48) continue;
+        const sum = (a,f) => a.reduce((s,c)=>s+ +c[f],0);
+        const last = k.slice(-24), prev = k.slice(0,-24), days = prev.length/24;
+        const q24=sum(last,7), n24=sum(last,8), tb=sum(last,10), qP=sum(prev,7), nP=sum(prev,8);
+        if(!q24 || !qP || !n24 || !nP) continue;
+        d[t] = {sr:(q24/n24)/(qP/nP), vr:q24/(qP/days), buy:tb/q24};
+      }catch(e){} } };
+    await Promise.all(Array.from({length:6}, worker));
+    if(Object.keys(d).length){ S.whale = {t:Date.now(), d}; store.set("sh2_whale", S.whale); }
+  }catch(e){}
+  finally{ whaleBusy = false; applyWhale(); if(S.tab==="crypto"||S.tab==="watch") render(); }
+}
+
 const LOADERS = {crypto:loadCryptoAll, my:loadMy, us:()=>loadStocks("america",SH_US,"us"), hk:()=>loadStocks("hongkong",SH_HK,"hk")};
 
 async function load(tab, force){
@@ -409,7 +468,7 @@ async function load(tab, force){
       if(!S.data[tab]) S.data[tab] =tab==="crypto" ? parse(SH_CRYPTO,([t,n,s,slug])=>({m:"crypto",id:"crypto:"+t,t,n,s,slug}))
         : tab==="us" ? parse(SH_US,([t,n,s,isr])=>({m:"us",id:"us:"+t,t,n,s,isr:+isr||0}))
         : tab==="hk" ? parse(SH_HK,([t,n,s])=>({m:"hk",id:"hk:"+t,t,n,s})) : []; }
-    finally{ S.loading[tab]=null; counts(); if(S.tab===tab||S.tab==="watch") render(); }
+    finally{ S.loading[tab]=null; if(tab==="crypto") loadWhale(); counts(); if(S.tab===tab||S.tab==="watch") render(); }
   })();
   return S.loading[tab];
 }
@@ -426,7 +485,8 @@ function rowsFor(){
   rows.forEach(x => cnt[x.s==="R"?"G":x.s]++);
   ["Y","G","N"].forEach(k=>document.getElementById("c-"+k).textContent=cnt[k]);
   if(S.st!=="all") rows = rows.filter(x => (x.s==="R"?"G":x.s)===S.st);
-  if(S.rf!=="all") rows = rows.filter(x => {
+  if(S.rf==="wi"||S.rf==="wo") rows = rows.filter(x => x.whc===(S.rf==="wi"?"in":"out"));
+  else if(S.rf!=="all") rows = rows.filter(x => {
     const v = x.ar ?? x.tr, l = rateLabel(v); if(!l) return false;
     return S.rf==="sb" ? l[0]==="sb" : S.rf==="b+" ? (l[0]==="sb"||l[0]==="b") : S.rf==="n" ? l[0]==="n" : (l[0]==="s"||l[0]==="ss");
   });
@@ -448,6 +508,7 @@ function columns(){
   else c.push({id:"m1",k:"m1",l:"1B %"},{id:"mcap",k:"mcap",l:"Market Cap"},{id:"vol",k:"vol",l:"Volume"});
   if(t!=="crypto") c.push({id:"ar",k:"ar",l:"Rating analis",s:"Analis"},{id:"up",k:"up",l:"Sasaran harga"});
   c.push({id:t==="crypto"?"tr":"tr2",k:"tr",l:"Teknikal harian",s:"Teknikal"});
+  if(t==="crypto") c.push({id:"wh",k:"wh",l:"Whale 24j",s:"Whale"});
   if(t==="us") c.push({id:"isr",k:"isr",l:"Dana ke Israel"});
   c.push({id:"st",k:"",l:"Status"});
   if(t==="crypto") c.push({id:"sp",k:"",l:"7 hari lepas"});
@@ -491,7 +552,7 @@ function render(){
       let h = `<tr data-id="${esc(x.id)}">
         <td class="star"><button class="starbtn ${S.watch.has(x.id)?"on":""}" data-star="${esc(x.id)}" aria-label="Watchlist">${S.watch.has(x.id)?"★":"☆"}</button></td>
         <td class="rank">${n}</td>
-        <td class="l"><div class="name">${logoHtml(x)}<div class="nt"><b>${esc(x.n)}</b><span><i class="dot ${x.s}" title="${ST_LABEL[x.s]}"></i>${esc(x.t)}</span></div></div></td>
+        <td class="l"><div class="name">${logoHtml(x)}<div class="nt"><b>${esc(x.n)}</b><span><i class="dot ${x.s}" title="${ST_LABEL[x.s]}"></i>${esc(x.t)}${S.tab==="crypto"&&x.whc&&x.whc!=="calm"?`<span class="wh whm ${x.whc}">${WH_LABEL[x.whc][1]}</span>`:""}</span></div></div></td>
         <td>${fmtPx(x.px,x.m)}</td><td>${fmtPct(x.ch)}</td><td>${fmtPct(x.w)}</td>`;
       if(S.tab==="crypto"||S.tab==="watch") h += `<td>${fmtBig(x.mcap,x.m)}</td><td>${fmtBig(x.vol,x.m)}</td>`;
       else h += `<td>${fmtPct(x.m1)}</td><td>${fmtBig(x.mcap,x.m)}</td><td>${fmtBig(x.vol,"")}</td>`;
@@ -500,6 +561,7 @@ function render(){
         h += `<td>${x.pt ? `${fmtPx(x.pt,x.m)} <span class="${x.up>=0?"up":"down"}" style="font-size:12px">${x.up>=0?"+":""}${x.up.toFixed(1)}%</span>` : '<span style="color:var(--muted)">—</span>'}</td>`;
       }
       h += `<td>${ratePill(x.tr)}</td>`;
+      if(S.tab==="crypto") h += `<td>${whalePill(x)}</td>`;
       if(S.tab==="us") h += `<td>${x.isr?`<span class="isr">$${x.isr.toLocaleString()}J</span>`:'<span style="color:var(--muted)">—</span>'}</td>`;
       h += `<td><span class="st ${x.s}">${ST_LABEL[x.s]}</span></td>`;
       if(S.tab==="crypto") h += `<td>${spark(x.sp, (x.w??0)>=0)}</td>`;
@@ -559,6 +621,9 @@ function openChart(id){
   }
   rh += `<span>Teknikal harian ${ratePill(x.tr)}</span>`;
   if(x.tma!=null) rh += `<span>Moving average ${ratePill(x.tma)}</span><span>Oscillator ${ratePill(x.tosc)}</span>`;
+  if(x.m==="crypto"){ const w=S.whale.d[x.t];
+    rh += w ? `<span>Whale 24j ${whalePill(x)}</span><span>Saiz dagangan <b>${w.sr.toFixed(2)}x</b> biasa · Volume <b>${w.vr.toFixed(2)}x</b> · Beli <b>${(w.buy*100).toFixed(0)}%</b></span>`
+            : `<span>Whale: tiada data Binance</span>`; }
   document.getElementById("mRate").innerHTML = rh;
   const sym = tvSymbol(x);
   const tvUrl = "https://www.tradingview.com/chart/?symbol="+encodeURIComponent(sym);
