@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Screener Halal">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%230f8a5f'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='white'%3E☪%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 2.5 34 8v11.2c0 9-6 15.6-14 18.3C12 34.8 6 28.2 6 19.2V8z' fill='%230f8a5f'/%3E%3Cpath d='M22.6 11.2A8.6 8.6 0 1 0 22.6 27.8A10 10 0 0 1 22.6 11.2z' fill='%23fff'/%3E%3Cpolygon points='25.2,15.6 25.9,17.6 28,17.6 26.3,18.9 26.9,20.9 25.2,19.7 23.5,20.9 24.1,18.9 22.4,17.6 24.5,17.6' fill='%23f5d36b'/%3E%3C/svg%3E">
 <title>Screener Halal</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
@@ -35,26 +35,32 @@ a{color:inherit}
 .wrap{max-width:1400px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 header{border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;gap:24px;height:64px}
-.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:18px;white-space:nowrap}
-.logo i{width:28px;height:28px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;font-style:normal;font-size:14px}
+.logo{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.logo .mark{width:36px;height:36px;flex:none;filter:drop-shadow(0 2px 4px rgba(10,110,75,.25))}
+.logo .lt{display:flex;flex-direction:column;line-height:1.1}
+.logo .lt b{font-size:17px;font-weight:700;letter-spacing:-.2px}
+.logo .lt small{font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);margin-top:2px}
 nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
 nav.tabs button{border:0;background:transparent;padding:8px 12px;border-radius:8px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap}
 nav.tabs button:hover{color:var(--fg)}
 nav.tabs button[aria-selected="true"]{color:var(--fg);background:var(--bg2)}
 nav.tabs .n{font-weight:500;font-size:12px;color:var(--muted);margin-left:4px}
 
-.intro{padding-block:22px 6px}
-.intro h1{font-size:22px;margin:0 0 4px;font-weight:700}
-.intro p{margin:0;color:var(--muted);font-size:13px;max-width:90ch}
+.intro{padding-block:22px 4px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.intro h1{font-size:22px;margin:0 0 2px;font-weight:700}
+.intro p{margin:0;color:var(--muted);font-size:13px}
 
-.toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-block:14px}
-.chip{border:0;background:var(--bg2);padding:7px 12px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;color:var(--muted)}
-.chip[aria-pressed="true"]{background:var(--accent-bg);color:var(--accent)}
-.chip .n{font-weight:500;margin-left:4px;opacity:.8}
+.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-block:12px 14px}
+.seg{display:inline-flex;background:var(--bg2);border-radius:10px;padding:3px;gap:2px}
+.chip{border:0;background:transparent;padding:6px 11px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed="true"]{background:var(--bg);color:var(--fg);box-shadow:0 1px 3px rgba(13,20,33,.12)}
+.chip .n{font-weight:500;opacity:.7;font-size:12px}
 .toolbar .sp{flex:1}
-.search{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg2);width:240px;max-width:100%}
-.upd{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.iconbtn{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12px;font-weight:600}
+.search{padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg2);width:240px;max-width:100%}
+.upd{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.iconbtn{border:1px solid var(--line);background:var(--bg);border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:15px;font-weight:600;display:grid;place-items:center;padding:0}
+.iconbtn:hover{color:var(--accent);border-color:var(--accent)}
+.foc{font-size:12.5px;color:var(--muted);font-weight:500}
 
 .tablebox{overflow-x:auto;border-top:1px solid var(--line)}
 table{border-collapse:collapse;width:100%;min-width:900px;font-variant-numeric:tabular-nums}
@@ -74,7 +80,7 @@ td.rank{width:40px;color:var(--muted);text-align:left}
 .name .ph{display:grid;place-items:center;font-size:10px;font-weight:700;color:var(--muted)}
 .nt{display:flex;align-items:baseline;gap:8px;min-width:0}
 .nt span{display:inline-flex;align-items:center;gap:5px}
-.dot{display:none;width:7px;height:7px;border-radius:50%;flex:none}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;flex:none}
 .dot.Y{background:var(--ok)} .dot.G,.dot.R{background:var(--grey)} .dot.N{background:var(--bad)}
 .name b{font-weight:600;max-width:190px;overflow:hidden;text-overflow:ellipsis}
 .name span{color:var(--muted);font-size:13px}
@@ -97,7 +103,7 @@ td.rank{width:40px;color:var(--muted);text-align:left}
 .mrate b{color:var(--fg);font-weight:600}
 .bar{display:flex;height:8px;width:160px;border-radius:4px;overflow:hidden;background:var(--bg2)}
 svg.spark{display:block;margin-left:auto}
-.msg{padding:40px 10px;text-align:center;color:var(--muted)}
+td.msg{padding:40px 16px;text-align:center;color:var(--muted);white-space:normal}
 .skel td{color:transparent}
 .skel td span.b{display:inline-block;height:12px;width:70%;border-radius:4px;background:var(--bg2)}
 
@@ -129,15 +135,20 @@ footer a{color:var(--accent)}
   nav.tabs button{padding:7px 10px}
   .search{width:100%;order:10}
   .toolbar .sp{display:none}
-  .upd{width:100%;justify-content:space-between}
-  .chip{padding:6px 10px;font-size:12.5px}
+  .chip{font-size:12.5px}
   .intro{padding-block:14px 0}
   .intro h1{font-size:18px}
   .intro p{font-size:12px}
   /* Jadual ringkas macam app CoinMarketCap: nama, harga, 24j, rating */
   .tablebox{margin-inline:calc(-1 * max(16px, env(safe-area-inset-left,0px)));}
   table{min-width:0}
-  .c-rank,.c-w,.c-m1,.c-mcap,.c-vol,.c-up,.c-isr,.c-st,.c-sp,.c-tr2{display:none}
+  .c-rank,.c-w,.c-m1,.c-mcap,.c-vol,.c-aum,.c-er,.c-f,.c-sp,.c-tr2{display:none}
+  .logo .mark{width:32px;height:32px}
+  .intro{align-items:center}
+  #upd:not(.err){display:none}
+  .upd{white-space:normal}
+  .seg{width:100%} .seg .chip{flex:1;justify-content:center;padding:6px 4px}
+  .rsel{flex:1}
   .c-wh{display:none}
   .whm{display:inline-block;margin-left:5px;font-size:10.5px;font-weight:700;padding:0 4px;border-radius:4px}
   th,td{padding:12px 4px}
@@ -165,26 +176,37 @@ footer a{color:var(--accent)}
 </head>
 <body>
 <header><div class="wrap">
-  <div class="logo"><i>☪</i>Screener Halal</div>
+  <div class="logo">
+    <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
+      <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#17b97c"/><stop offset="1" stop-color="#0a6e4b"/></linearGradient></defs>
+      <path d="M20 2.5 34 8v11.2c0 9-6 15.6-14 18.3C12 34.8 6 28.2 6 19.2V8z" fill="url(#lg)"/>
+      <path d="M22.6 11.2A8.6 8.6 0 1 0 22.6 27.8A10 10 0 0 1 22.6 11.2z" fill="#fff"/>
+      <polygon points="25.2,15.6 25.9,17.6 28,17.6 26.3,18.9 26.9,20.9 25.2,19.7 23.5,20.9 24.1,18.9 22.4,17.6 24.5,17.6" fill="#f5d36b"/>
+    </svg>
+    <div class="lt"><b>Screener Halal</b><small>Patuh Syariah</small></div>
+  </div>
   <nav class="tabs" role="tablist" id="tabs">
     <button role="tab" data-t="crypto">Kripto<span class="n" id="n-crypto"></span></button>
     <button role="tab" data-t="my">Bursa<span class="n" id="n-my"></span></button>
     <button role="tab" data-t="us">Saham US<span class="n" id="n-us"></span></button>
     <button role="tab" data-t="hk">Saham HK<span class="n" id="n-hk"></span></button>
-    <button role="tab" data-t="watch">★ Watchlist<span class="n" id="n-watch"></span></button>
+    <button role="tab" data-t="etf">ETF<span class="n" id="n-etf"></span></button>
+    <button role="tab" data-t="watch">★<span class="n" id="n-watch"></span></button>
   </nav>
 </div></header>
 
 <main class="wrap">
   <div class="intro">
-    <h1 id="h1">Kripto patuh Syariah</h1>
-    <p id="sub"></p>
+    <div><h1 id="h1">Kripto</h1><p id="sub"></p></div>
+    <span class="upd"><span id="upd">Memuatkan…</span><button class="iconbtn" id="refresh" type="button" title="Muat semula" aria-label="Muat semula">↻</button></span>
   </div>
   <div class="toolbar">
-    <button class="chip" data-s="Y" aria-pressed="true">Patuh<span class="n" id="c-Y"></span></button>
-    <button class="chip" data-s="G" aria-pressed="false">Grey / Dalam semakan<span class="n" id="c-G"></span></button>
-    <button class="chip" data-s="N" aria-pressed="false">Tidak patuh<span class="n" id="c-N"></span></button>
-    <button class="chip" data-s="all" aria-pressed="false">Semua</button>
+    <div class="seg" role="group" aria-label="Status Syariah">
+      <button class="chip" data-s="Y" aria-pressed="true"><i class="dot Y"></i>Patuh<span class="n" id="c-Y"></span></button>
+      <button class="chip" data-s="G" aria-pressed="false"><i class="dot G"></i>Grey<span class="n" id="c-G"></span></button>
+      <button class="chip" data-s="N" aria-pressed="false"><i class="dot N"></i>Tidak<span class="n" id="c-N"></span></button>
+      <button class="chip" data-s="all" aria-pressed="false">Semua</button>
+    </div>
     <select class="rsel" id="rf" aria-label="Tapis rating">
       <option value="all">Semua rating</option>
       <option value="sb">Strong Buy sahaja</option>
@@ -195,8 +217,7 @@ footer a{color:var(--accent)}
       <option value="wo">🐋 Whale keluar (kripto)</option>
     </select>
     <span class="sp"></span>
-    <input class="search" id="q" type="search" placeholder="Cari nama atau ticker" autocomplete="off">
-    <span class="upd"><span id="upd">Memuatkan…</span><button class="iconbtn" id="refresh" type="button">↻ Muat semula</button></span>
+    <input class="search" id="q" type="search" placeholder="🔍  Cari nama atau ticker" autocomplete="off">
   </div>
   <div class="tablebox">
     <table>
@@ -210,6 +231,8 @@ footer a{color:var(--accent)}
 <footer><div class="wrap">
   Status Syariah: kripto, saham US &amp; HK dari <a href="https://www.sharlife.my" target="_blank" rel="noopener">Sharlife</a> (penasihat Syariah berdaftar SC, disalin 20 Nov 2026).
   Bursa: senarai Majlis Penasihat Syariah SC melalui TradingView (live).
+  ETF: dana yang menjejak indeks Islamik, sukuk atau emas patuh Syariah (diselia penasihat Syariah penerbit masing-masing).
+  Whale kripto: anggaran dari corak dagangan Binance.
   Harga: CoinGecko &amp; TradingView. Rating analis (saham) dan rating teknikal harian (semua) dari TradingView; rating teknikal hanya membaca indikator dan berubah setiap hari. Bukan fatwa peribadi dan bukan nasihat pelaburan. Sahkan status sebelum membeli.
 </div></footer>
 
@@ -235,17 +258,23 @@ footer a{color:var(--accent)}
 const SH_CRYPTO = "BTC|Bitcoin|Y|bitcoin;ETH|Ethereum|Y|ethereum;BNB|BNB|Y|build-n-build-coin;XRP|XRP|Y|ripple;SOL|Solana|Y|solana;TRX|TRON|Y|tron;HYPE|Hyperliquid|Y|hyper-liquid;SHIB|Shiba Inu|G|shiba-inu;DOGE|Dogecoin|G|dogecoin;WBTC|Wrapped Bitcoin|Y|wrapped-bitcoin;LINK|Chainlink|Y|chainlink;ADA|Cardano|Y|cardano;LEO|Unus Sed Leo|N|unus-sed-leo;XLM|Stellar|Y|stellar;ETC|Ethereum Classic|Y|ethereum-classic;BCH|Bitcoin Cash|Y|bitcoin-cash;NEAR|NEAR Protocol|Y|near-protocol;LTC|Litecoin|Y|litecoin;AVAX|Avalanche|Y|avalanche;UNI|Uniswap|Y|uniswap;OKB|Okb|G|okb;TON|Toncoin|Y|toncoin;SUI|Sui|Y|sui;STX|Stacks|Y|stacks;XAUT|Tether Gold|Y|tether-gold;ARB|Arbitrum|Y|arbitrum;XMR|Monero|Y|monero;HBAR|Hedera|Y|hedera-hashgraph;TAO|Bittensor|Y|bittensor;CRO|Cronos|Y|cronos;AAVE|Aave|Y|aave;PAXG|PAX Gold|G|pax-gold;CORE|Core DAO|Y|core-dao;PEPE|Pepe|N|pepe;LDO|Lido DAO|N|lido-dao;WLFI|World Liberty Financial|G|world-liberty-financial;ONDO|Ondo|N|ondo-finance;ENA|Ethena|N|ethena;ASTER|Aster|G|aster;HTX|HTX|Y|htx;FLOW|Flow|Y|flow;MNT|Mantle|Y|mantle;BSV|Bitcoin SV|Y|bitcoin-sv;DOT|Polkadot|Y|polkadot;ICP|Internet Computer|Y|internet-computer;PUMP|Pump.fun|N|pump-fun;QNT|Quant|Y|quant;BTT|Bittorrent|Y|bittorrent;BGB|Bitget Token|Y|bitget-token;CHZ|Chiliz|Y|chiliz;AXS|Axie Infinity|Y|axie-infinity;VVV|Venice Token|Y|venice-token;SAND|The Sandbox|Y|the-sandbox;WLD|Worldcoin|Y|world-coin;XEC|eCash|Y|ecash;KCS|Kucoin Token|G|kucoin-token;MORPHO|Morpho|G|morpho-blue;XTZ|Tezos|Y|tezos;EOS|Eos|Y|eos;EOSC|EOS Force|Y|eos-force;MINA|Mina Protocol|Y|mina-protocol;POL|POL (ex-MATIC)|Y|polygon-ex-matic;OPTI|Optimus AI|G|optimus-ai;MANA|Decentraland|Y|decentraland;GNO|Gnosis|Y|gnosis;RENDER|Render|Y|render-network;JUP|Jupiter|Y|jupiter;KAS|Kaspa|N|kaspa;NEXO|Nexo|N|nexo;HNT|Helium|Y|helium;APE|ApeCoin|Y|apecoin;GT|GateToken|Y|gate-token;ALGO|Algorand|Y|algorand;ATOM|Cosmos|Y|cosmos-atom;CKB|Nervos Network|Y|nervos-network;CAKE|Pancakeswap|N|pancakeswap;INJ|Injective|Y|injective;LIT|Lighter|N|lighter;KLAY|Klaytn|Y|klaytn;BTG|Bitcoin Gold|Y|bitcoin-gold;XDC|XDC Network|Y|xdc-network;PI|Pi|Y|pi-network;GLM|Golem|Y|golem;ZRO|LayerZero|Y|layerzero;FTT|Ftx|G|ftx;ASTR|Astar|Y|astar;FIL|Filecoin|Y|filecoin;DASH|Dash|Y|dash;IOTX|Iotex|Y|iotex;ETHFI|ether.fi|G|ether-fi;XRD|Radix|G|radix;ENJ|Enjin Coin|Y|enjin-coin;1INCH|1Inch|N|1inch;FLR|Flare|Y|flare;CELO|Celo|Y|celo;ANKR|Ankr|N|ankr;RBN|Ribbon Finance|N|ribbon-finance;SC|Siacoin|Y|siacoin;VET|VeChain|Y|vechain;PYTH|Pyth Network|Y|pyth-network;ID|Space ID|Y|space-id;BNX|BinaryX|N|binaryx;RPL|Rocket Pool|G|rocket-pool;SKL|Skale|Y|skale;ZEC|Zcash|Y|zcash;RAY|Raydium|Y|raydium;QTUM|Qtum|Y|qtum;SFP|SafePal|Y|safepal;HOT|Holo|Y|holo;APT|Aptos|Y|aptos;BAT|Basic Attention Token|Y|basic-attention-token;TIA|Celestia|Y|celestia;ANT|Aragon|Y|aragon;LRC|Loopring|N|loopring;AERO|Aerodrome Finance|Y|aerodrome-finance;XEM|Nem|Y|nem;CSPR|Casper|Y|casper;TEL|Telcoin|Y|telcoin;JST|Just|N|just;DCR|Decred|Y|decred;FLUX|Flux|Y|flux;CRV|Curve DAO Token|G|curve-dao-token;BICO|Biconomy|Y|biconomy;RSR|Reserve|Y|reserve;FET|Artificial Superintelligence Alliance|G|artificial-super-alliance;SEI|Sei|Y|sei;PENGU|Pudgy Penguins|G|pudgy-penguins;UMA|Uma|N|uma;WAVES|Waves|Y|waves;ONT|Ontology|Y|ontology;ONE|Harmony|Y|harmony;CHR|Chromia|Y|chromia;VIRTUAL|Virtuals Protocol|G|virtuals-protocol;TRUMP|OFFICIAL TRUMP|N|official-trump;LSK|Lisk|Y|lisk;STRK|Starknet|N|starknet;LUNC|Terra Classic|Y|terra-classic;KSM|Kusama|Y|kusama;PENDLE|Pendle|G|pendle;YFII|DFI.Money|N|dfi-money;CVX|Convex Finance|N|convex-finance;RLC|IEXEEC RLC|Y|iexeec-rlc;KDA|Kadena|Y|kadena;ICX|Icon|Y|icon;XPL|Plasma|Y|plasma;WAXP|WAX|Y|wax;STORJ|Storj|Y|storj;BONK|Bonk|G|bonk;SXP|Swipe|N|swipe;API3|API3|Y|api3;BAL|Balancer|Y|balancer;NFT|APENFT|Y|apenft;IOST|IOST|Y|iost;DGB|Digibyte|Y|digibyte;IMX|Immutable|Y|immutable;AUDIO|Audius|G|audius;GRT|The Graph|Y|the-graph;C98|Coin98|N|coin98;BEAM|Beam|Y|beam;COMP|Compound|G|compound;PROM|Prometeus|Y|prometeus;OP|Optimism|Y|optimism;CFX|Conflux|Y|conflux;RUNE|THORChain|Y|thorchain;CVC|Civic|Y|civic;ZBCN|Zebec Network|Y|zebec-network;FLOKI|FLOKI|G|floki;KEEP|Keep Network|G|keep-network;ENS|Ethereum Name Service|Y|ethereum-name-service;WMT|World Mobile Token|Y|world-mobile-token;MON|Monad|G|monad;HIVE|Hive|Y|hive;AR|Arweave|Y|arweave;AKT|Akash Network|Y|akash-network;JASMY|JasmyCoin|Y|jasmycoin;IOTA|IOTA|Y|iota;TWT|Trust Wallet Token|Y|trust-wallet-token;KMNO|Kamino Finance|Y|kamino-finance;SYS|Syscoin|Y|syscoin;FLUID|Fluid|G|fluid;SFUND|Seedify.fund|Y|seedify-fund;MET|Meteora|G|meteora;SYN|Synapse|Y|synapse;TRAC|OriginTrail|Y|origintrail;THETA|Theta Network|G|theta-network;JTO|Jito|Y|jito;WIF|dogwifhat|N|dogwifhat;SUN|Sun [New]|N|sun;ZCX|Unizen|N|unizen;XYM|Symbol|Y|symbol;MOVR|Moonriver|Y|moonriver;EIGEN|EigenLayer|Y|eigen-layer;DUSK|Dusk Network|Y|dusk-network;ZEN|Horizen|Y|horizen;XCN|Onyxcoin|Y|onyxcoin;SYRUP|Maple Finance|G|maple-finance;HOOK|Hooked Protocol|Y|hooked-protocol;ORCA|Orca|Y|orca;WIN|WINkLink|G|winklink;POLY|Polymath|Y|polymath";
 const SH_US = "AAPL|Apple|N|160;NVDA|NVIDIA|Y|6039;GOOG|Alphabet|Y|34125;MSFT|Microsoft|Y|514;AMZN|Amazon.com|N|306;AVGO|Broadcom|Y|269;META|Meta Platforms|N|59;TSLA|Tesla|N|;LLY|Eli Lilly and Company|Y|;WMT|Walmart|N|10;JPM|JP Morgan Chase & Co.|N|1473;ORCL|Oracle|Y|74;V|Visa|Y|329;XOM|Exxon Mobil|Y|;MA|Mastercard|Y|94;JNJ|Johnson & Johnson|Y|138;NFLX|Netflix|N|;ABBV|AbbVie|N|;COST|Costco Wholesale|N|;BAC|Bank of America|N|;AMD|Advanced Micro Devices|Y|58;HD|Home Depot|Y|;PG|Procter & Gamble|Y|144;CSCO|Cisco Systems|Y|;KO|Coca-Cola|N|;GE|GE Aerospace|N|1160;CVX|Chevron|Y|73;UNH|UnitedHealth Group|N|;IBM|IBM|R|482;MS|Morgan Stanley|N|501;WFC|Wells Fargo & Company|N|;CAT|Caterpillar|N|;GS|Goldman Sachs Group|N|;AXP|American Express|N|2154;CRM|Salesforce|Y|2245;MRK|Merck & Company|Y|110;PM|Philip Morris International|N|;RTX|RTX|N|;TMUS|T-Mobile US|N|;MCD|McDonald's|Y|;AMAT|Applied Materials|Y|202;TMO|Thermo Fisher Scientific|Y|132;ABT|Abbott Laboratories|Y|;LRCX|Lam Research|Y|;ISRG|Intuitive Surgical|Y|;PEP|PepsiCo|Y|12;C|Citigroup|N|;INTC|Intel|N|3675;DIS|Walt Disney|N|;QCOM|QUALCOMM|Y|674;INTU|Intuit|N|57;LIN|Linde|Y|;BLK|BlackRock|N|10053;T|AT&T|N|2125;TJX|TJX Companies|Y|;APH|Amphenol|Y|;BKNG|Booking Holdings|Y|;SCHW|Charles Schwab|N|;ACN|Accenture|N|117;NEE|NextEra Energy|N|;ANET|Arista Networks|Y|;TXN|Texas Instruments|Y|69;KLAC|KLA|Y|;DHR|Danaher|Y|;SPGI|S&P Global|Y|;GILD|Gilead Sciences|Y|;COF|Capital One Financial|N|2628;ADBE|Adobe|Y|;PFE|Pfizer|N|303;UNP|Union Pacific|Y|;BSX|Boston Scientific|Y|81;LOW|Lowe's Companies|Y|;PANW|Palo Alto Networks|N|25436;ADI|Analog Devices|N|;ETN|Eaton|N|;PGR|Progressive|N|;MDT|Medtronic|Y|749;DE|Deere & Company|N|;HON|Honeywell International|N|94;CB|Chubb|N|;COP|ConocoPhillips|Y|;HCA|HCA Healthcare|N|;VRTX|Vertex Pharmaceuticals|N|;LMT|Lockheed Martin|N|;BMY|Bristol-Myers Squibb|N|;MCK|McKesson|Y|;MO|Altria Group|N|;CMCSA|Comcast|N|3734;CME|CME Group|N|;SO|Southern Company|N|;NKE|Nike|Y|4;SBUX|Starbucks|Y|;CDNS|Cadence Design Systems|N|8;GD|General Dynamics|N|;ICE|Intercontinental Exchange|N|1;DUK|Duke Energy|N|;MMC|Marsh & McLennan|N|;TT|Trane Technologies|Y|;MCO|Moody's|Y|;SNPS|Synopsys|Y|5;AMT|American Tower|N|;WM|Waste Management|Y|;UPS|United Parcel Service|N|;USB|U.S. Bancorp|N|;SHW|Sherwin-Williams|Y|;ORLY|O'Reilly Automotive|Y|;PNC|PNC Financial Services|N|;NOC|Northrop Grumman|N|;ABNB|Airbnb|N|;MAR|Marriott International|N|;EMR|Emerson Electric|Y|1;AON|Aon|N|;CTAS|Cintas|Y|;ELV|Elevance Health|N|384;REGN|Regeneron Pharmaceuticals|Y|;EQIX|Equinix|Y|;GM|General Motors|N|111;MNST|Monster Beverage|Y|;ECL|Ecolab|Y|;ITW|Illinois Tool Works|Y|;JCI|Johnson Controls International|Y|39;CI|The Cigna Group|N|;MDLZ|Mondelez International|R|;CSX|CSX|N|;FDX|FedEx|N|;RSG|Republic Services|Y|;ADSK|Autodesk|Y|;HLT|Hilton Worldwide|R|;FTNT|Fortinet|Y|145;CL|Colgate-Palmolive|Y|;AEP|American Electric Power|N|;MSI|Motorola Solutions|Y|3693;AJG|Arthur J. Gallagher & Co.|N|;TFC|Truist Financial|N|;KMI|Kinder Morgan|N|;EOG|EOG Resources|R|;SPG|Simon Property Group|N|;AZO|AutoZone|Y|;SRE|Sempra|N|;ROST|Ross Stores|Y|;NXPI|NXP Semiconductors|Y|2;MPC|Marathon Petroleum|N|;SLB|SLB|R|;PCAR|PACCAR|Y|;PYPL|PayPal Holdings|Y|269;AFL|AFLAC|N|;IDXX|IDEXX Laboratories|Y|;BDX|Becton, Dickinson and Company|N|100;VLO|Valero Energy|N|;ALL|Allstate|N|1176;APD|Air Products and Chemicals|N|;MET|MetLife|N|;ZTS|Zoetis|Y|;EA|Electronic Arts|N|1;D|Dominion Energy|N|;EW|Edwards Lifesciences|Y|238;ROP|Roper Technologies|Y|;PSA|Public Storage|N|;CARR|Carrier Global|Y|;EXC|Exelon|N|;TGT|Target|N|;OXY|Occidental Petroleum|N|;PAYX|Paychex|N|;A|Agilent Technologies|Y|;YUM|Yum! Brands|N|;PRU|Prudential Financial|N|;CTSH|Cognizant Technology Solutions|N|;CPRT|Copart|R|;MCHP|Microchip Technology|R|2;RMD|ResMed|R|;FISV|Fiserv|R|;KMB|Kimberly-Clark|R|;ODFL|Old Dominion Freight Line|R|;HUM|Humana|R|;VRSK|Verisk Analytics|R|1;CHTR|Charter Communications|N|;KHC|Kraft Heinz|N|;ADM|Archer-Daniels-Midland|N|;DG|Dollar General|N|;DXCM|DexCom|R|;BIIB|Biogen|R|;STZ|Constellation Brands|N|;GIS|General Mills|N|;DVN|Devon Energy|N|;TROW|T. Rowe Price Group|R|;ON|ON Semiconductor|R|";
 const SH_HK = "9988|Alibaba Group|N;1288|Agricultural Bank of China|N;1398|ICBC|N;3988|Bank of China|N;2628|China Life Insurance|N;1810|Xiaomi|N;1211|BYD Company|Y;2899|Zijin Mining|N;1088|China Shenhua Energy|Y;1299|AIA Group|N;9999|NetEase|N;3690|Meituan|N;1658|Postal Savings Bank of China|N;2388|BOC Hong Kong|N;2328|PICC Property & Casualty|N;2601|China Pacific Insurance|N;9888|Baidu|N;1378|China Hongqiao Group|N;9618|JD.com|N;1919|COSCO Shipping Holdings|N;2020|ANTA Sports|Y;1109|China Resources Land|N;1336|New China Life Insurance|N;1816|CGN Power|N;6618|JD Health|N;1988|China Minsheng Banking|N;2333|Great Wall Motor|N;1898|China Coal Energy|N;2338|Weichai Power|N;1347|Hua Hong Semiconductor|N;1113|CK Asset Holdings|N;2269|Wuxi Biologics|Y;1929|Chow Tai Fook Jewellery|Y;1055|China Southern Airlines|N;2727|Shanghai Electric|N;1171|Yankuang Energy|N;1772|Ganfeng Lithium|N;1038|CK Infrastructure|R;1972|Swire Properties|N;1177|Sino Biopharmaceutical|R;1913|Prada|R;1186|China Railway Construction|N;1876|Budweiser APAC|R;2313|Shenzhou International|N;1093|CSPC Pharmaceutical|R;9866|NIO|N;2688|ENN Energy|N;2238|Guangzhou Automobile|N;6969|Smoore International|R;6862|Haidilao|R;2382|Sunny Optical|N;1997|Wharf REIC|N;1618|Metallurgical Corp of China|N;1138|COSCO Shipping Energy|N;1071|Huadian Power|N;2282|MGM China|N;1099|Sinopharm Group|N;2883|China Oilfield Services|N;2319|China Mengniu Dairy|N;2638|HK Electric Investments|N;1193|China Resources Gas|N;1385|Shanghai Fudan Microelectronics|R;2018|AAC Technologies|R;3323|China National Building Material|N;1357|Meitu|R;1044|Hengan International|N;1128|Wynn Macau|N;1833|Ping An Healthcare|N;1910|Samsonite|N;6060|ZhongAn Online|R;1066|Shandong Weigao|N;6098|Country Garden Services|N;6185|CanSino Biologics|N;2007|Country Garden|N;2314|Lee & Man Paper|N";
+/* ETF patuh Syariah: semua menjejak indeks Islamik / sukuk / emas patuh Syariah. Format: simbol TradingView|nama|fokus */
+const SH_ETF = "AMEX:SPUS|SP Funds S&P 500 Sharia|Saham US besar;NASDAQ:HLAL|Wahed FTSE USA Shariah|Saham US;NASDAQ:UMMA|Wahed Dow Jones Islamic World|Saham dunia (luar US);AMEX:SPWO|SP Funds S&P World ex-US|Saham dunia (luar US);AMEX:SPTE|SP Funds S&P Global Technology|Teknologi global;AMEX:SPRE|SP Funds S&P Global REIT Sharia|REIT global;AMEX:SPSK|SP Funds Dow Jones Global Sukuk|Sukuk (bon Islamik);"
+  + "MYX:EQ8MY25|EQ8 DJ Islamic Malaysia Titans 25|Saham Malaysia;MYX:EQ8MID|EQ8 MSCI Malaysia Islamic Dividend|Dividen Malaysia;MYX:EQ8SID|EQ8 MSCI SEA Islamic Dividend|Dividen Asia Tenggara;MYX:EQ8US50|EQ8 Dow Jones US Titans 50|Saham US besar;MYX:CHINA100-MYR|VP-DJ Shariah China A-Shares 100|Saham China;MYX:GOLDETF|TradePlus Shariah Gold Tracker|Emas;"
+  + "LSE:ISDU|iShares MSCI USA Islamic|Saham US;LSE:ISDW|iShares MSCI World Islamic|Saham dunia;LSE:ISDE|iShares MSCI EM Islamic|Pasaran membangun;LSE:IGDA|Invesco DJ Islamic Global Developed|Saham negara maju;LSE:HIWO|HSBC MSCI World Islamic Screened|Saham dunia;LSE:DJIW|Wahed DJ Islamic World (UCITS)|Saham dunia";
 const parse = (s, f) => s.split(";").map(r => f(r.split("|")));
 
 /* ===== Keadaan ===== */
 const ST_LABEL = {Y:"Patuh", G:"Grey", R:"Dalam semakan", N:"Tidak patuh"};
 const TAB_INFO = {
-  crypto:{h:"Kripto patuh Syariah", sub:"200 kripto teratas mengikut market cap, status Syariah oleh Sharlife. Harga live dari CoinGecko."},
-  my:{h:"Saham Bursa Malaysia patuh Syariah", sub:"Semua saham Bursa, status mengikut senarai Majlis Penasihat Syariah SC (dikemas kini Mei & November). Harga live dari TradingView."},
-  us:{h:"Saham US patuh Syariah", sub:"Saham US terbesar, status Syariah oleh Sharlife. Lajur \"Dana ke Israel\" ialah anggaran Sharlife (USD juta). Harga dari TradingView."},
-  hk:{h:"Saham Hong Kong patuh Syariah", sub:"Saham HK terbesar, status Syariah oleh Sharlife. Harga dari TradingView."},
-  watch:{h:"Watchlist saya", sub:"Tekan ★ pada mana-mana baris untuk simpan di sini. Disimpan dalam browser ini sahaja."}
+  crypto:{h:"Kripto", sub:"200 kripto teratas · status oleh Sharlife"},
+  my:{h:"Saham Bursa Malaysia", sub:"Semua saham Bursa · senarai Syariah SC"},
+  us:{h:"Saham US", sub:"Saham US terbesar · status oleh Sharlife"},
+  hk:{h:"Saham Hong Kong", sub:"Saham HK terbesar · status oleh Sharlife"},
+  etf:{h:"ETF patuh Syariah", sub:"ETF yang menjejak indeks Islamik, sukuk dan emas"},
+  watch:{h:"Watchlist", sub:"Tekan ☆ pada mana-mana baris untuk simpan di sini"}
 };
+const MKTS = ["crypto","my","us","hk","etf"];
 const store = {
   get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
   set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
@@ -253,13 +282,14 @@ const store = {
 const S = {
   tab: store.get("sh2_tab","crypto"), st: "Y", q: "", rf: "all", page: 1, per: 50,
   sort: {k:"mcap", d:-1}, watch: new Set(store.get("sh2_watch", [])),
-  data: {crypto:null, my:null, us:null, hk:null}, err: {}, loading: {}, updated: {}, cached: {}
+  data: {crypto:null, my:null, us:null, hk:null, etf:null}, err: {}, loading: {}, updated: {}, cached: {}
 };
 
 /* ===== Format ===== */
 const NARROW = matchMedia("(max-width:700px)");
 NARROW.addEventListener("change", () => render());
-const CUR = {crypto:"$", us:"$", my:"RM", hk:"HK$"};
+const CUR = {crypto:"$", us:"$", my:"RM", hk:"HK$", USD:"$", MYR:"RM", HKD:"HK$", GBP:"£", EUR:"€"};
+const cur = x => x.cy || x.m;
 function fmtPx(v, m){
   if(v==null||isNaN(v)) return "—";
   const c = CUR[m]||"";
@@ -450,10 +480,22 @@ async function loadWhale(force){
   finally{ whaleBusy = false; applyWhale(); if(S.tab==="crypto"||S.tab==="watch") render(); }
 }
 
-const LOADERS = {crypto:loadCryptoAll, my:loadMy, us:()=>loadStocks("america",SH_US,"us"), hk:()=>loadStocks("hongkong",SH_HK,"hk")};
+const etfList = () => parse(SH_ETF, ([sym,n,f]) => ({m:"etf", id:"etf:"+sym, tv:sym, ex:sym.split(":")[0], t:sym.split(":")[1], n, f, s:"Y"}));
+const EX_MKT = {AMEX:"america", NASDAQ:"america", NYSE:"america", MYX:"malaysia", LSE:"uk"};
+async function loadEtf(){
+  const list = etfList();
+  const cols = ["close","currency","change","Perf.W","Perf.1M","aum","expense_ratio","volume","logoid","Recommend.All","Recommend.MA","Recommend.Other"];
+  const groups = {}; list.forEach(x => (groups[EX_MKT[x.ex]] ||= []).push(x.tv));
+  const res = await Promise.all(Object.entries(groups).map(([m,t]) => tvScan(m, {symbols:{tickers:t}, columns:cols})));
+  const by = {}; res.flat().forEach(r => by[r.s] = r.d);
+  list.forEach(x => { const d = by[x.tv]; if(!d) return;
+    Object.assign(x, {px:d[0], cy:d[1], ch:d[2], w:d[3], m1:d[4], mcap:d[5], er:d[6], vol:d[7], logo:d[8], tr:d[9], tma:d[10], tosc:d[11]}); });
+  return list;
+}
+const LOADERS = {crypto:loadCryptoAll, my:loadMy, us:()=>loadStocks("america",SH_US,"us"), hk:()=>loadStocks("hongkong",SH_HK,"hk"), etf:loadEtf};
 
 async function load(tab, force){
-  if(tab==="watch"){ await Promise.all(["crypto","my","us","hk"].map(t=>load(t))); return; }
+  if(tab==="watch"){ await Promise.all(MKTS.map(t=>load(t))); return; }
   if(S.data[tab] && !force) return;
   if(S.loading[tab]) return S.loading[tab];
   S.loading[tab] = (async()=>{
@@ -467,7 +509,7 @@ async function load(tab, force){
       else S.err[tab]=e.message==="Failed to fetch" ? "sumber harga sibuk, cuba Muat semula sebentar lagi" : e.message;
       if(!S.data[tab]) S.data[tab] =tab==="crypto" ? parse(SH_CRYPTO,([t,n,s,slug])=>({m:"crypto",id:"crypto:"+t,t,n,s,slug}))
         : tab==="us" ? parse(SH_US,([t,n,s,isr])=>({m:"us",id:"us:"+t,t,n,s,isr:+isr||0}))
-        : tab==="hk" ? parse(SH_HK,([t,n,s])=>({m:"hk",id:"hk:"+t,t,n,s})) : []; }
+        : tab==="hk" ? parse(SH_HK,([t,n,s])=>({m:"hk",id:"hk:"+t,t,n,s})) : tab==="etf" ? etfList() : []; }
     finally{ S.loading[tab]=null; if(tab==="crypto") loadWhale(); counts(); if(S.tab===tab||S.tab==="watch") render(); }
   })();
   return S.loading[tab];
@@ -476,7 +518,7 @@ async function load(tab, force){
 /* ===== Paparan ===== */
 function rowsFor(){
   let rows = S.tab==="watch"
-    ? ["crypto","my","us","hk"].flatMap(t => (S.data[t]||[]).filter(x=>S.watch.has(x.id)))
+    ? MKTS.flatMap(t => (S.data[t]||[]).filter(x=>S.watch.has(x.id)))
     : (S.data[S.tab]||[]);
   const base = rows;
   const q = S.q.trim().toLowerCase();
@@ -504,16 +546,27 @@ function columns(){
   const t=S.tab;
   const c=[ {id:"star",k:"",l:"",cls:"l"}, {id:"rank",k:"",l:"#",cls:"l"}, {id:"n",k:"n",l:"Nama",cls:"l"},
     {id:"px",k:"px",l:"Harga"}, {id:"ch",k:"ch",l:"24j %"}, {id:"w",k:"w",l:"7h %"} ];
-  if(t==="crypto"||t==="watch") c.push({id:"mcap",k:"mcap",l:"Market Cap"},{id:"vol",k:"vol",l:"Volume (24j)"});
-  else c.push({id:"m1",k:"m1",l:"1B %"},{id:"mcap",k:"mcap",l:"Market Cap"},{id:"vol",k:"vol",l:"Volume"});
-  if(t!=="crypto") c.push({id:"ar",k:"ar",l:"Rating analis",s:"Analis"},{id:"up",k:"up",l:"Sasaran harga"});
-  c.push({id:t==="crypto"?"tr":"tr2",k:"tr",l:"Teknikal harian",s:"Teknikal"});
-  if(t==="crypto") c.push({id:"wh",k:"wh",l:"Whale 24j",s:"Whale"});
-  if(t==="us") c.push({id:"isr",k:"isr",l:"Dana ke Israel"});
-  c.push({id:"st",k:"",l:"Status"});
-  if(t==="crypto") c.push({id:"sp",k:"",l:"7 hari lepas"});
+  if(t==="etf") c.push({id:"m1",k:"m1",l:"1B %"},{id:"aum",k:"mcap",l:"Aset (AUM)"},{id:"er",k:"er",l:"Kos tahunan"},{id:"f",k:"",l:"Fokus",cls:"l"},
+    {id:"tr",k:"tr",l:"Teknikal harian",s:"Teknikal"});
+  else if(t==="crypto") c.push({id:"mcap",k:"mcap",l:"Market Cap"},{id:"vol",k:"vol",l:"Volume 24j"},
+    {id:"tr",k:"tr",l:"Teknikal harian",s:"Teknikal"},{id:"wh",k:"wh",l:"Whale 24j",s:"Whale"},{id:"sp",k:"",l:"7 hari"});
+  else if(t==="watch") c.push({id:"mcap",k:"mcap",l:"Market Cap"},{id:"tr",k:"tr",l:"Teknikal harian",s:"Teknikal"});
+  else c.push({id:"m1",k:"m1",l:"1B %"},{id:"mcap",k:"mcap",l:"Market Cap"},
+    {id:"ar",k:"ar",l:"Rating analis",s:"Analis"},{id:"tr2",k:"tr",l:"Teknikal harian",s:"Teknikal"});
   return c;
 }
+const DASH = '<span style="color:var(--muted)">—</span>';
+const CELL = {
+  star: x => `<button class="starbtn ${S.watch.has(x.id)?"on":""}" data-star="${esc(x.id)}" aria-label="Watchlist">${S.watch.has(x.id)?"★":"☆"}</button>`,
+  rank: (x,n) => n,
+  n: x => `<div class="name">${logoHtml(x)}<div class="nt"><b>${esc(x.n)}</b><span><i class="dot ${x.s}" title="${ST_LABEL[x.s]}"></i>${esc(x.t)}${x.m==="crypto"&&x.whc&&x.whc!=="calm"?`<span class="wh whm ${x.whc}">${WH_LABEL[x.whc][1]}</span>`:""}</span></div></div>`,
+  px: x => fmtPx(x.px, cur(x)), ch: x => fmtPct(x.ch), w: x => fmtPct(x.w), m1: x => fmtPct(x.m1),
+  mcap: x => fmtBig(x.mcap, cur(x)), aum: x => fmtBig(x.mcap, cur(x)), vol: x => fmtBig(x.vol, cur(x)),
+  er: x => x.er!=null ? x.er.toFixed(2)+"%" : DASH,
+  f: x => `<span class="foc">${esc(x.f||"")}</span>`,
+  ar: x => ratePill(x.ar, x.an), tr: x => ratePill(x.tr), tr2: x => ratePill(x.tr),
+  wh: x => whalePill(x), sp: x => spark(x.sp, (x.w??0)>=0)
+};
 
 function logoHtml(x){
   const src = x.img || (x.logo ? `https://s3-symbol-logo.tradingview.com/${x.logo}.svg` : "");
@@ -533,7 +586,7 @@ function render(){
     `<th class="${c.cls||""} c-${c.id}" data-sort="${c.k}">${c.s?`<span class="full">${c.l}</span><span class="short">${c.s}</span>`:c.l}${S.sort.k===c.k&&c.k?`<span class="arr">${S.sort.d<0?"↓":"↑"}</span>`:""}</th>`).join("");
 
   const tb = document.getElementById("tbody");
-  const tabsNeeded = S.tab==="watch" ? ["crypto","my","us","hk"] : [S.tab];
+  const tabsNeeded = S.tab==="watch" ? MKTS : [S.tab];
   const ready = tabsNeeded.every(t=>S.data[t]);
   if(!ready){
     tb.innerHTML = Array.from({length:10},()=>`<tr class="skel">${cols.map(c=>`<td class="c-${c.id}"><span class="b"></span></td>`).join("")}</tr>`).join("");
@@ -549,26 +602,10 @@ function render(){
   } else {
     tb.innerHTML = slice.map((x,i) => {
       const n = (S.page-1)*S.per + i + 1;
-      let h = `<tr data-id="${esc(x.id)}">
-        <td class="star"><button class="starbtn ${S.watch.has(x.id)?"on":""}" data-star="${esc(x.id)}" aria-label="Watchlist">${S.watch.has(x.id)?"★":"☆"}</button></td>
-        <td class="rank">${n}</td>
-        <td class="l"><div class="name">${logoHtml(x)}<div class="nt"><b>${esc(x.n)}</b><span><i class="dot ${x.s}" title="${ST_LABEL[x.s]}"></i>${esc(x.t)}${S.tab==="crypto"&&x.whc&&x.whc!=="calm"?`<span class="wh whm ${x.whc}">${WH_LABEL[x.whc][1]}</span>`:""}</span></div></div></td>
-        <td>${fmtPx(x.px,x.m)}</td><td>${fmtPct(x.ch)}</td><td>${fmtPct(x.w)}</td>`;
-      if(S.tab==="crypto"||S.tab==="watch") h += `<td>${fmtBig(x.mcap,x.m)}</td><td>${fmtBig(x.vol,x.m)}</td>`;
-      else h += `<td>${fmtPct(x.m1)}</td><td>${fmtBig(x.mcap,x.m)}</td><td>${fmtBig(x.vol,"")}</td>`;
-      if(S.tab!=="crypto"){
-        h += `<td>${ratePill(x.ar, x.an)}</td>`;
-        h += `<td>${x.pt ? `${fmtPx(x.pt,x.m)} <span class="${x.up>=0?"up":"down"}" style="font-size:12px">${x.up>=0?"+":""}${x.up.toFixed(1)}%</span>` : '<span style="color:var(--muted)">—</span>'}</td>`;
-      }
-      h += `<td>${ratePill(x.tr)}</td>`;
-      if(S.tab==="crypto") h += `<td>${whalePill(x)}</td>`;
-      if(S.tab==="us") h += `<td>${x.isr?`<span class="isr">$${x.isr.toLocaleString()}J</span>`:'<span style="color:var(--muted)">—</span>'}</td>`;
-      h += `<td><span class="st ${x.s}">${ST_LABEL[x.s]}</span></td>`;
-      if(S.tab==="crypto") h += `<td>${spark(x.sp, (x.w??0)>=0)}</td>`;
-      return h + "</tr>";
+      return `<tr data-id="${esc(x.id)}">` + cols.map(c =>
+        `<td class="c-${c.id}${c.id==="star"?" star":c.id==="rank"?" rank":c.cls?" "+c.cls:""}">${CELL[c.id](x,n)}</td>`).join("") + "</tr>";
     }).join("");
   }
-  tb.querySelectorAll("tr[data-id]").forEach(tr => [...tr.children].forEach((td,i) => cols[i] && td.classList.add("c-"+cols[i].id)));
   // pager
   const pg = document.getElementById("pager");
   if(pages<=1){ pg.innerHTML = `<span class="info">${rows.length} item</span>`; }
@@ -585,6 +622,7 @@ function render(){
 function updStamp(){
   const t = S.tab==="watch"?null:S.tab;
   const el = document.getElementById("upd");
+  el.classList.toggle("err", !!(t && S.err[t]));
   if(t && S.err[t]) el.innerHTML = `<span style="color:var(--bad)">Harga gagal dimuat (${esc(S.err[t])}). Status tetap dipaparkan.</span>`;
   else if(t && S.loading[t] && !S.data[t]) el.textContent = "Memuatkan…";
   else if(t && S.updated[t]) el.textContent = (S.cached[t] ? "Harga simpanan dari " : "Dikemas kini ") +
@@ -592,7 +630,7 @@ function updStamp(){
   else el.textContent = "";
 }
 function counts(){
-  ["crypto","my","us","hk"].forEach(t=>{ const d=S.data[t]; document.getElementById("n-"+t).textContent = d? d.filter(x=>x.s==="Y").length : ""; });
+  MKTS.forEach(t=>{ const d=S.data[t]; document.getElementById("n-"+t).textContent = d? d.filter(x=>x.s==="Y").length : ""; });
   document.getElementById("n-watch").textContent = S.watch.size || "";
 }
 
@@ -602,13 +640,17 @@ function tvSymbol(x){
   return x.tv || x.t;
 }
 function openChart(id){
-  const x = ["crypto","my","us","hk"].flatMap(t=>S.data[t]||[]).find(r=>r.id===id); if(!x) return;
+  const x = MKTS.flatMap(t=>S.data[t]||[]).find(r=>r.id===id); if(!x) return;
   document.getElementById("mName").innerHTML = `${logoHtml(x)}<b>${esc(x.n)}</b><span>${esc(x.t)}</span>`;
-  document.getElementById("mPx").textContent = fmtPx(x.px,x.m);
+  document.getElementById("mPx").textContent = fmtPx(x.px,cur(x));
   document.getElementById("mCh").innerHTML = fmtPct(x.ch);
   document.getElementById("mSt").innerHTML = `<span class="st ${x.s}">${ST_LABEL[x.s]}</span>`;
   let rh = "";
-  if(x.m!=="crypto"){
+  if(x.m==="etf"){
+    rh += `<span>Fokus <b>${esc(x.f)}</b></span><span>Aset <b>${fmtBig(x.mcap,cur(x))}</b></span>`;
+    if(x.er!=null) rh += `<span>Kos tahunan <b>${x.er.toFixed(2)}%</b></span>`;
+  }
+  else if(x.m!=="crypto"){
     if(x.an){
       const ab=x.ab||[], tot=ab.reduce((a,b)=>a+(b||0),0)||1;
       const segs=[["var(--up)",ab[0]],["#7fdcb4",ab[1]],["var(--muted)",ab[2]],["#f19ca1",ab[3]],["var(--down)",ab[4]]]
@@ -618,6 +660,7 @@ function openChart(id){
         <span>Buy <b>${(ab[0]||0)+(ab[1]||0)}</b> · Hold <b>${ab[2]||0}</b> · Sell <b>${(ab[3]||0)+(ab[4]||0)}</b></span>`;
       if(x.pt) rh += `<span>Sasaran purata <b>${fmtPx(x.pt,x.m)}</b> <span class="${x.up>=0?"up":"down"}">(${x.up>=0?"+":""}${x.up.toFixed(1)}%)</span></span>`;
     } else rh += `<span>Tiada liputan analis</span>`;
+    if(x.isr) rh += `<span>Dana ke Israel (anggaran Sharlife) <b class="isr">$${x.isr.toLocaleString()}J</b></span>`;
   }
   rh += `<span>Teknikal harian ${ratePill(x.tr)}</span>`;
   if(x.tma!=null) rh += `<span>Moving average ${ratePill(x.tma)}</span><span>Oscillator ${ratePill(x.tosc)}</span>`;
@@ -631,12 +674,13 @@ function openChart(id){
   const sh = document.getElementById("mSh");
   if(x.m==="crypto"){ sh.hidden=false; sh.href="https://www.sharlife.my/crypto-shariah/crypto/"+x.slug; sh.textContent="Sharlife ↗"; }
   else if(x.m==="us"||x.m==="hk"){ sh.hidden=false; sh.href="https://www.sharlife.my/stocks/"+x.t; sh.textContent="Sharlife ↗"; }
-  else { sh.hidden=false; sh.href="https://www.bursamalaysia.com/market_information/shariah_compliant_equities_prices"; sh.textContent="Bursa Syariah ↗"; }
+  else if(x.m==="my"){ sh.hidden=false; sh.href="https://www.bursamalaysia.com/market_information/shariah_compliant_equities_prices"; sh.textContent="Bursa Syariah ↗"; }
+  else sh.hidden=true;
   const box = document.getElementById("tvbox");
   document.getElementById("ov").hidden = false;
   document.body.style.overflow="hidden";
-  if(x.m==="my"||x.m==="hk"){
-    const mk = x.m==="my"?"Bursa":"Hong Kong";
+  if(x.m==="my"||x.m==="hk"||x.ex==="MYX"){
+    const mk = x.m==="hk"?"Hong Kong":"Bursa";
     box.innerHTML = `<div class="nochart"><b style="color:var(--fg);font-size:16px">Carta ${mk} dibuka di TradingView</b>
       <span>TradingView tidak benarkan data ${mk} dipaparkan dalam carta terbenam.</span>
       <span><a class="btn" href="${tvUrl}" target="_blank" rel="noopener">Buka carta ${esc(x.t)} ↗</a></span></div>`;
@@ -671,7 +715,7 @@ document.getElementById("tbody").addEventListener("click",e=>{
   const tr=e.target.closest("tr[data-id]"); if(tr) openChart(tr.dataset.id);
 });
 document.getElementById("pager").addEventListener("click",e=>{const b=e.target.closest("button[data-p]"); if(!b||b.disabled) return; S.page=+b.dataset.p; render(); window.scrollTo({top:0,behavior:"smooth"})});
-document.getElementById("refresh").addEventListener("click",()=>{ const t=S.tab==="watch"?["crypto","my","us","hk"]:[S.tab]; t.forEach(x=>load(x,true)); });
+document.getElementById("refresh").addEventListener("click",()=>{ const t=S.tab==="watch"?MKTS:[S.tab]; t.forEach(x=>load(x,true)); });
 document.getElementById("mClose").addEventListener("click",closeChart);
 document.getElementById("ov").addEventListener("click",e=>{ if(e.target.id==="ov") closeChart(); });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeChart(); });
@@ -679,7 +723,7 @@ setInterval(()=>{ if(document.visibilityState==="visible" && S.tab!=="watch") lo
 
 if(S.tab==="watch") S.st="all";
 counts(); render(); load(S.tab);
-["crypto","my","us","hk"].filter(t=>t!==S.tab).forEach((t,i)=>setTimeout(()=>load(t),800*(i+1)));
+MKTS.filter(t=>t!==S.tab).forEach((t,i)=>setTimeout(()=>load(t),800*(i+1)));
 </script>
 </body>
 </html>
